@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad3_submission_1/controllers/auth_controller.dart';
 import 'package:mad3_submission_1/routing/router.dart';
 import 'package:mad3_submission_1/screens/auth/signin_splash_screen.dart';
+import 'package:mad3_submission_1/screens/home/wrapper.dart';
 import 'package:mad3_submission_1/utils/colors.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
         useMaterial3: true,
       ),
-      home: const SignInSplashScreen(),
+      home: const HomeWrapper(),
     );
   }
 }

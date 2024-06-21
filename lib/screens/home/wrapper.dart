@@ -36,7 +36,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person_circle), label: "Profile"),
+              icon: Icon(CupertinoIcons.person_circle_fill), label: "Profile"),
         ],
       ),
     );
