@@ -6,6 +6,9 @@ import 'package:mad3_submission_1/utils/colors.dart';
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
+  static const String route = "/signin";
+  static const String name = "Sign In";
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }

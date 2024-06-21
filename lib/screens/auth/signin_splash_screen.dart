@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mad3_submission_1/routing/router.dart';
 import 'package:mad3_submission_1/screens/auth/signin_form_screen.dart';
 import 'package:mad3_submission_1/utils/colors.dart';
 
 class SignInSplashScreen extends StatelessWidget {
   const SignInSplashScreen({super.key});
+
+  static const String route = "/signin_splash";
+  static const String name = "Sign In Splash Screen";
 
   @override
   Widget build(BuildContext context) {
@@ -107,13 +111,7 @@ class SignInSplashScreen extends StatelessWidget {
                               const Spacer(),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignInScreen(),
-                                    ),
-                                  );
+                                  GlobalRouter.I.router.go(SignInScreen.route);
                                 },
                                 child: Text(
                                   "Sign In",
