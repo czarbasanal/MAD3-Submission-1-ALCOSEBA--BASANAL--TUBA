@@ -107,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     SizedBox(height: size.height * 0.04),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
                           // for sign in button
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 18,
                               ),
                             ),
                           ),

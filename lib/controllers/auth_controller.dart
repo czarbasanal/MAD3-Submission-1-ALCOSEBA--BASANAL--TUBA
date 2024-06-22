@@ -7,12 +7,10 @@ class AuthController with ChangeNotifier {
   static const String hiveBoxName = "authBox";
   static const String hiveKeyAuth = "isAuthenticated";
 
-  // Static method to initialize the singleton in GetIt
   static void initialize() {
     GetIt.instance.registerSingleton<AuthController>(AuthController());
   }
 
-  // Static getter to access the instance through GetIt
   static AuthController get instance => GetIt.instance<AuthController>();
   static AuthController get I => GetIt.instance<AuthController>();
 
@@ -32,15 +30,12 @@ class AuthController with ChangeNotifier {
     }
   }
 
-  ///write code to log out the user and add it to the home page.
   logout() async {
     state = AuthState.unauthenticated;
     await saveSession(false);
     notifyListeners();
   }
 
-  ///must be called in main before runApp
-  ///
   loadSession() async {
     var box = await Hive.openBox(hiveBoxName);
     bool? isAuthenticated = box.get(hiveKeyAuth);

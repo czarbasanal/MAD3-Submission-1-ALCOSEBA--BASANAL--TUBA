@@ -9,3 +9,5 @@ Color textColor1 = const Color(0xff353047);
 Color textColor2 = const Color(0xff6F6B7A);
 Color buttonColor = const Color(0xff674aef);
 Color onErrorColor = const Color(0xffFD6B68);
+const kPrimaryColor = Color(0xff6849ef);
+const kPrimaryLight = Color(0xff8a72f1);

@@ -46,7 +46,7 @@ class SignInSplashScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Discover your\nDream job Here",
+                      "Discover your\ndream job Here",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class SignInSplashScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 25),
                     Text(
-                      "Explore all the most exiting jobs roles\nbased on your interest And study major",
+                      "Explore all the most exiting jobs roles\nbased on your interest and study major",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
