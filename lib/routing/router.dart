@@ -50,7 +50,8 @@ class GlobalRouter {
     _shellNavigatorKey = GlobalKey<NavigatorState>();
     router = GoRouter(
         navigatorKey: _rootNavigatorKey,
-        initialLocation: HomeScreen.route,
+        initialLocation: SignInSplashScreen
+            .route, //change to HomeScreen.route when handleRedirect is implemented
         // redirect: handleRedirect,
         refreshListenable: AuthController.I,
         routes: [

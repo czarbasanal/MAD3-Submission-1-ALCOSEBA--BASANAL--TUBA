@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mad3_submission_1/routing/router.dart';
+import 'package:mad3_submission_1/screens/home/home_screen.dart';
+import 'package:mad3_submission_1/screens/home/wrapper.dart';
 import 'package:mad3_submission_1/utils/colors.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -106,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         children: [
                           // for sign in button
                           ElevatedButton(
-                            onPressed: _submit,
+                            onPressed: _submit, //refer _submit method below
                             style: ElevatedButton.styleFrom(
                               backgroundColor: buttonColor,
                               shape: RoundedRectangleBorder(
@@ -262,7 +265,7 @@ class _SignInScreenState extends State<SignInScreen> {
             borderRadius: BorderRadius.circular(15),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent, width: 1),
+            borderSide: const BorderSide(color: Colors.blueAccent, width: 1),
             borderRadius: BorderRadius.circular(15),
           ),
           errorBorder: OutlineInputBorder(
