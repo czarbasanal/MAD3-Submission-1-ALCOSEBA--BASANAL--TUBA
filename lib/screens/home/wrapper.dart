@@ -3,38 +3,52 @@ import 'package:flutter/material.dart';
 import 'package:mad3_submission_1/screens/home/home_screen.dart';
 import 'package:mad3_submission_1/screens/home/profile_screen.dart';
 
-import '../../routing/router.dart';
-
 class HomeWrapper extends StatefulWidget {
   final Widget? child;
-  const HomeWrapper({super.key, this.child});
+
+  const HomeWrapper({Key? key, this.child}) : super(key: key);
 
   @override
   State<HomeWrapper> createState() => _HomeWrapperState();
 }
 
 class _HomeWrapperState extends State<HomeWrapper> {
-  int index = 0;
+  int currentIndex = 0;
 
-  List<String> routes = [HomeScreen.route, ProfileScreen.route];
+  static const List<Widget> screens = [
+    HomeScreen(),
+    ProfileScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.child ?? const Placeholder(),
+      body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: index,
-        onTap: (i) {
-          setState(() {
-            index = i;
-            GlobalRouter.I.router.go(routes[i]);
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        currentIndex: currentIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.grey,
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person_circle_fill), label: "Profile"),
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.person_fill),
+            label: 'Profile',
+          ),
         ],
+        selectedLabelStyle: TextStyle(
+          decoration:
+              TextDecoration.underline, // Add underline to selected item label
+        ),
       ),
     );
   }
