@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mad3_submission_1/controllers/auth_controller.dart';
 import 'package:mad3_submission_1/routing/router.dart';
 import 'package:mad3_submission_1/screens/auth/signin_splash_screen.dart';
 import 'package:mad3_submission_1/screens/home/wrapper.dart';
 import 'package:mad3_submission_1/utils/colors.dart';
+import 'package:hive/hive.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   AuthController.initialize();
+  await AuthController.I.loadSession();
   GlobalRouter.initialize();
   runApp(const MyApp());
 }

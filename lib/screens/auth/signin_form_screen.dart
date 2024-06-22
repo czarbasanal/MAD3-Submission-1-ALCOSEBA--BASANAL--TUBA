@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mad3_submission_1/controllers/auth_controller.dart';
+import 'package:mad3_submission_1/dialogs/waiting_dialog.dart';
+import 'package:mad3_submission_1/enum/enum.dart';
 import 'package:mad3_submission_1/routing/router.dart';
 import 'package:mad3_submission_1/screens/home/home_screen.dart';
 import 'package:mad3_submission_1/screens/home/wrapper.dart';
@@ -303,12 +306,26 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // Handle successful validation and sign in logic here
-      print("Form is valid");
-    } else {
-      print("Form is invalid");
+      await WaitingDialog.show(
+        context,
+        future: AuthController.I.login(
+          _usernameController.text,
+          _passwordController.text,
+        ),
+      );
+      if (AuthController.I.state == AuthState.authenticated) {
+        GlobalRouter.I.router.go(HomeScreen.route);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login Success')),
+        );
+      } else {
+        // Handle login failure
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed, please try again.')),
+        );
+      }
     }
   }
 }
