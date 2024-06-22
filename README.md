@@ -1,16 +1,12 @@
-# mad3_submission_1
+Outlined in this section are the contributions made by each member for the MAD3-Submission-1 activity.
 
-A new Flutter project.
+- ALCOSEBA, NATHAN MATHEW
+  - Modified Main to accommodate localy stored fonts
+  - Created Icons and Size dart files
+  - Created Profile,Details, andCourse Screen
+  - Created Category, Lesson, Course dart files
+  - Created a button, search bar, and lesson card widget
+  - Added assets for better UI
+  - Implemented a logout button which logs user out of the session
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
