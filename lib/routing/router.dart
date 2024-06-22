@@ -26,69 +26,64 @@ class GlobalRouter {
   late GlobalKey<NavigatorState> _rootNavigatorKey;
   late GlobalKey<NavigatorState> _shellNavigatorKey;
 
-  //Mexl Gods - Router must react to authentication changes
-
-  // FutureOr<String?> handleRedirect(
-  //     BuildContext context, GoRouterState state) async {
-  //   if (AuthController.I.state == AuthState.authenticated) {
-  //     if (state.matchedLocation == SignInScreen.route) {
-  //       return HomeScreen.route;
-  //     }
-  //     return null;
-  //   }
-  //   if (AuthController.I.state != AuthState.authenticated) {
-  //     if (state.matchedLocation == SignInScreen.route) {
-  //       return null;
-  //     }
-  //     return LoginScreen.route;
-  //   }
-  //   return null;
-  // }
-
   GlobalRouter() {
     _rootNavigatorKey = GlobalKey<NavigatorState>();
     _shellNavigatorKey = GlobalKey<NavigatorState>();
     router = GoRouter(
-        navigatorKey: _rootNavigatorKey,
-        initialLocation: SignInSplashScreen
-            .route, //change to HomeScreen.route when handleRedirect is implemented
-        // redirect: handleRedirect,
-        refreshListenable: AuthController.I,
-        routes: [
-          GoRoute(
-              parentNavigatorKey: _rootNavigatorKey,
-              path: SignInSplashScreen.route,
-              name: SignInSplashScreen.name,
-              builder: (context, _) {
-                return const SignInSplashScreen();
-              }),
-          GoRoute(
-              parentNavigatorKey: _rootNavigatorKey,
-              path: SignInScreen.route,
-              name: SignInScreen.name,
-              builder: (context, _) {
-                return const SignInScreen();
-              }),
-          ShellRoute(
-              navigatorKey: _shellNavigatorKey,
-              builder: (context, state, child) {
-                return HomeWrapper(child: child);
-              },
-              routes: [
-                GoRoute(
-                    parentNavigatorKey: _shellNavigatorKey,
-                    path: HomeScreen.route,
-                    name: HomeScreen.name,
-                    builder: (context, _) {
-                      return const HomeScreen();
-                    }),
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorKey,
-                  path: ProfileScreen.route,
-                  name: ProfileScreen.name,
-                  builder: (context, _) => const ProfileScreen(),
-                ),
-              ])
-        ]);
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: SignInSplashScreen.route,
+      redirect: (context, state) {
+        final authState = AuthController.I.state;
+        final goingToSignIn = state.uri.toString() == SignInScreen.route;
+        final goingToSplash = state.uri.toString() == SignInSplashScreen.route;
+
+        if (authState == AuthState.unauthenticated && goingToSplash) {
+          return SignInSplashScreen.route;
+        }
+        if (authState == AuthState.unauthenticated && !goingToSignIn) {
+          return SignInScreen.route;
+        }
+
+        if (authState == AuthState.authenticated &&
+            (goingToSignIn || goingToSplash)) {
+          return HomeScreen.route;
+        }
+
+        return null;
+      },
+      refreshListenable: AuthController.I,
+      routes: [
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: SignInSplashScreen.route,
+          name: SignInSplashScreen.name,
+          builder: (context, _) => const SignInSplashScreen(),
+        ),
+        GoRoute(
+          parentNavigatorKey: _rootNavigatorKey,
+          path: SignInScreen.route,
+          name: SignInScreen.name,
+          builder: (context, _) => const SignInScreen(),
+        ),
+        ShellRoute(
+          navigatorKey: _shellNavigatorKey,
+          builder: (context, state, child) => HomeWrapper(child: child),
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: HomeScreen.route,
+              name: HomeScreen.name,
+              builder: (context, _) => const HomeScreen(),
+            ),
+            GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: ProfileScreen.route,
+              name: ProfileScreen.name,
+              builder: (context, _) => const ProfileScreen(),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

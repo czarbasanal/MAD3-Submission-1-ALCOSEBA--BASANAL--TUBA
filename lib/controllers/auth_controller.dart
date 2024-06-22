@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mad3_submission_1/enum/enum.dart';
+import 'package:hive/hive.dart';
 
 class AuthController with ChangeNotifier {
+  static const String hiveBoxName = "authBox";
+  static const String hiveKeyAuth = "isAuthenticated";
+
   // Static method to initialize the singleton in GetIt
   static void initialize() {
     GetIt.instance.registerSingleton<AuthController>(AuthController());
@@ -10,34 +14,46 @@ class AuthController with ChangeNotifier {
 
   // Static getter to access the instance through GetIt
   static AuthController get instance => GetIt.instance<AuthController>();
-
   static AuthController get I => GetIt.instance<AuthController>();
 
   AuthState state = AuthState.unauthenticated;
   SimulatedAPI api = SimulatedAPI();
 
+  AuthController() {
+    loadSession();
+  }
+
   login(String userName, String password) async {
     bool isLoggedIn = await api.login(userName, password);
     if (isLoggedIn) {
       state = AuthState.authenticated;
-      //should store session
-
+      await saveSession(true);
       notifyListeners();
     }
   }
 
   ///write code to log out the user and add it to the home page.
-  logout() {
-    //should clear session
+  logout() async {
+    state = AuthState.unauthenticated;
+    await saveSession(false);
+    notifyListeners();
   }
 
   ///must be called in main before runApp
   ///
   loadSession() async {
-    //check secure storage method
+    var box = await Hive.openBox(hiveBoxName);
+    bool? isAuthenticated = box.get(hiveKeyAuth);
+    if (isAuthenticated != null && isAuthenticated) {
+      state = AuthState.authenticated;
+    }
+    notifyListeners();
   }
 
-  ///https://pub.dev/packages/flutter_secure_storage or any caching dependency of your choice like localstorage, hive, or a db
+  saveSession(bool isAuthenticated) async {
+    var box = await Hive.openBox(hiveBoxName);
+    await box.put(hiveKeyAuth, isAuthenticated);
+  }
 }
 
 class SimulatedAPI {

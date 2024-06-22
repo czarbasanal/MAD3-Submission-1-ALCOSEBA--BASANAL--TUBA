@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mad3_submission_1/screens/home/home_screen.dart';
+import 'package:mad3_submission_1/screens/home/profile_screen.dart';
 
 import '../../routing/router.dart';
 
@@ -15,21 +16,17 @@ class HomeWrapper extends StatefulWidget {
 class _HomeWrapperState extends State<HomeWrapper> {
   int index = 0;
 
-  List<String> routes = [HomeScreen.route, "/index"];
+  List<String> routes = [HomeScreen.route, ProfileScreen.route];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.child ?? const Placeholder(),
       bottomNavigationBar: BottomNavigationBar(
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
         currentIndex: index,
         onTap: (i) {
           setState(() {
             index = i;
-            // GoRouter.of(context).go(routes[i]);
-
             GlobalRouter.I.router.go(routes[i]);
           });
         },
